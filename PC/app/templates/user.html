@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}新闻聚合-个人信息{% endblock %}
+
+{% block page_content %}
+    <div class="page-header">
+        <div class="profile-header">
+            <h3>用户名：{{ current_user.username }}</h3>
+            <h4>
+                注册时间： {{ moment(current_user.member_since).format('L') }}.
+            </h4>
+            <h4>
+                上一次访问： {{ moment(current_user.last_seen).fromNow() }}.
+            </h4>
+            {% if current_user==current_user %}
+                <a class="btn btn-default" href="{{ url_for('.subscribe') }}">订阅栏目</a>
+            {% endif %}
+
+        </div>
+    </div>
+{% endblock %}

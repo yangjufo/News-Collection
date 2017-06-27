@@ -1,0 +1,7 @@
+<p>你好，{{ user.username}},</p>
+<p>欢迎来到新闻聚合站！</p>
+<p>请点击下面的链接确认你的账户：</p>
+<a href=" {{url_for('auth.confirm',token=token,_external=True)}}">点击确认</a>
+<p>如果不是您本人的操作，请忽略这个信息</p>
+<p>新闻聚合-你的专属新闻频道</p>
+<p><small>Note: replies to this email address are not monitored.</small></p>

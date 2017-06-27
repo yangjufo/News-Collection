@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import '_macros.html' as macros %}
+
+{% block title %}新闻聚合-你的专属新闻频道{% endblock %}
+
+{% block page_content %}
+    <br>
+    <div class="post-tabs">
+        <ul class="nav nav-tabs">
+            {% for column in columns %}
+                <li{% if cur_colum==cloum %} class="active"{% endif %}>
+                    <a href="{{ url_for('main.index')+'?category='+column }}">{{ column }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+        {% include '_posts.html' %}
+    </div>
+
+    <div class="pagination">
+        {{ macros.pagination_widget(pagination,'.index') }}
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    {{ pagedown.include_pagedown() }}
+{% endblock %}

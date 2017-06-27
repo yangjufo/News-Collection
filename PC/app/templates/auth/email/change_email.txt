@@ -1,0 +1,11 @@
+你好 {{ user.username }},
+
+点击下面的链接确认你的新邮箱地址:
+
+{{ url_for('auth.change_email', token=token, _external=True) }}
+
+Sincerely,
+
+The Flasky Team
+
+Note: replies to this email address are not monitored.

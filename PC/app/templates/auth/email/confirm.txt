@@ -1,0 +1,8 @@
+你好，{{ user.username}},
+欢迎来到小站！
+请点击下面的链接确认你的账户：
+{{url_for('auth.confirm',token=token,_external=True)}}
+
+如果不是您本人的操作，请忽略这个链接
+
+网站管理员

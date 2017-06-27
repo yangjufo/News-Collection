@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}新闻聚合 - 账户确认{% endblock %}
+
+{% block page_content %}
+    <div class="page-header">
+        <h1>
+            你好, {{ current_user.username }}!
+        </h1>
+        <h3>你的账号还没有确认</h3>
+        <p>
+            在你访问网站之前需要先确认账号.
+        <p>检查一下您的邮箱，您应该已经接收到了我们发送的确认链接.</p>
+        </p>
+        <p>
+            重发确认邮件?
+            <a href="{{ url_for('auth.resend_confirmation') }}">点击重发</a>
+        </p>
+        <p>
+            <a href="{{ url_for('auth.immediate_confirm') }}" class="btn btn-danger">点击立即确认</a>
+        </p>
+    </div>
+{% endblock %}

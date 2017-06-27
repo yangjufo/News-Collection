@@ -1,0 +1,31 @@
+<div class="mod articles">
+    <div id="articleList" class="article-list mod " data-pagetag="index" data-fr="idx">
+        {% for article in articles %}
+            <div class="article-info">
+                <div class="art-img">
+                    <a href="{{ article.url }}" target="_blank">
+                        <img src="{{ article.image }}">
+                    </a>
+                </div>
+                <div class="art-info" style="width: auto">
+                    <div class="title">
+                        <a href="{{ article.url }}" target="_blank">
+                            {{ article.title }}
+                        </a>
+                    </div>
+                    <div class="art-other">
+                        <div class="author">
+                            {{ article.web_site }}
+                            <p class="info">&nbsp;&nbsp;{{ article.publish_time }}</p>
+                        </div>
+
+                        <div class="tags">
+                            <span>{{ article.category }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+</div>

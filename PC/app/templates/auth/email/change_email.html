@@ -1,0 +1,6 @@
+<p>你好 {{ user.username }},</p>
+<p>确认你的新邮箱地址 <a href="{{ url_for('auth.change_email', token=token, _external=True) }}">点击确认</a>.</p>
+<p>你也可以把这个链接复制到你的浏览器地址栏打开:</p>
+<p>{{ url_for('auth.change_email', token=token, _external=True) }}</p>
+<p>新闻聚合-你的专属新闻频道</p>
+<p><small>Note: replies to this email address are not monitored.</small></p>
