@@ -1,2 +1,2 @@
 ## news_collection
-**This is a class project, you can download for consulting, but do not copy.**
+**新闻聚合网站，网页及Android应用。**
