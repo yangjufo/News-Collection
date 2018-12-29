@@ -4,9 +4,9 @@ import json
 import time
 import traceback
 
-from spiders.db.connect import test_engine, TestDBSession
-from spiders.db.models import Article
-from spiders.tools import *
+from db.connect import test_engine, TestDBSession
+from db.models import Article
+from tools import *
 
 test_conn = test_engine.connect()
 session = TestDBSession()
@@ -59,10 +59,12 @@ def toutiao_spider(category_web, category_db):
 
 def main():
     while True:
-        toutiao_spider("news_hot", "热点")
-        toutiao_spider("news_finance", "财经")
-        toutiao_spider("news_entertainment", "娱乐")
-        time.sleep(10000)
+        toutiao_spider("news_hot", "Hot")
+        toutiao_spider("news_finance", "Money")
+        toutiao_spider("news_entertainment", "Entertainment")
+        toutiao_spider("news_tech", "Technology")
+        toutiao_spider("news_sports", "Sports")
+        time.sleep(86400)
 
 
 if __name__ == '__main__':

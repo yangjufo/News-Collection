@@ -38,7 +38,7 @@ def subscribe():
         current_user.column2 = form.column2.data.strip()
         current_user.column3 = form.column3.data.strip()
         db.session.add(current_user)
-        flash('订阅栏目已更新')
+        flash('Subscription has updated!')
         return redirect(url_for('.subscribe'))
     form.column1.data = current_user.column1
     form.column2.data = current_user.column2

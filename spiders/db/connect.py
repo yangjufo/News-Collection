@@ -9,8 +9,8 @@ db_cfg={
     'host': '127.0.0.1',
     'port':3306,
     'user': 'root',
-    'passwd': '',
-    'db': 'pyblog',
+    'passwd': '12138',
+    'db': 'newsCollection',
     'encoding':'utf-8'
 }
 

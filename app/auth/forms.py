@@ -6,59 +6,65 @@ from ..models import User
 
 
 class LoginForm(FlaskForm):
-    email = StringField('邮箱', validators=[DataRequired(), Length(1, 64), Email()])
-    password = PasswordField('密码', validators=[DataRequired()])
-    remember_me = BooleanField('记住我')
-    submit = SubmitField('登录')
+    email = StringField('Email', validators=[DataRequired(), Length(1, 64), Email()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    remember_me = BooleanField('Keep me logged in')
+    submit = SubmitField('Log in')
 
 
 class RegistrationForm(FlaskForm):
-    email = StringField('邮件', validators=[DataRequired(), Length(1, 64), Email()])
-    username = StringField('用户名', validators=[DataRequired(), Length(1, 64), Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
-                                                                                    '用户名必须以字母开头，只能包含：字母、数字、点和下划线')])
-    password = PasswordField('密码', validators=[DataRequired(), Length(6, 64, message='密码长度必须大于等于6')])
-    password2 = PasswordField('确认密码', validators=[DataRequired(), EqualTo('password', message='Password must match.')])
-    submit = SubmitField('注册')
+    email = StringField('Email', validators=[DataRequired(), Length(1, 64), Email()])
+    username = StringField('Username', validators=[DataRequired(), Length(1, 64), Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
+                                                                                         'Username must start with a '
+                                                                                         'letter and can only contain: '
+                                                                                         'letters, numbers, dots, '
+                                                                                         'and underscores')])
+    password = PasswordField('Password', validators=[DataRequired(), Length(6, 64, message='Password must have at '
+                                                                                           'least 6 letters')])
+    password2 = PasswordField('Confirm password',
+                              validators=[DataRequired(), EqualTo('password', message='Password must match.')])
+    submit = SubmitField('Register')
 
     def validate_email(self, field):
         if User.query.filter_by(email=field.data).first():
-            raise ValidationError('邮箱已注册')
+            raise ValidationError('Email is registered!')
 
     def validate_username(self, field):
         if User.query.filter_by(username=field.data).first():
-            raise ValidationError('用户名已存在.')
+            raise ValidationError('Username exists!')
 
 
 class ChangePasswordForm(FlaskForm):
-    old_password = PasswordField('旧密码', validators=[DataRequired()])
-    password = PasswordField('新密码', validators=[DataRequired()])
-    password2 = PasswordField('确认密码',
-                              validators=[DataRequired(), EqualTo('password', message='两次输入密码必须相同')])
-    submit = SubmitField('提交', validators=[DataRequired()])
+    old_password = PasswordField('Password', validators=[DataRequired()])
+    password = PasswordField('New password', validators=[DataRequired()])
+    password2 = PasswordField('Confirm password',
+                              validators=[DataRequired(), EqualTo('password', message='Passwords must match!')])
+    submit = SubmitField('Submit', validators=[DataRequired()])
 
 
 class PasswordResetForm(FlaskForm):
-    email = StringField('邮箱', validators=[DataRequired(), Length(1, 64), Email()])
-    password = PasswordField('新密码', validators=[DataRequired()])
-    password2 = PasswordField('确认密码',
-                              validators=[DataRequired(), EqualTo('password', message='Password must match.')])
-    submit = SubmitField('提交')
+    email = StringField('Email', validators=[DataRequired(), Length(1, 64), Email()])
+    password = PasswordField('New password', validators=[DataRequired()])
+    password2 = PasswordField('Confirm password',
+                              validators=[DataRequired(), EqualTo('password', message='Passwords must match.')])
+    submit = SubmitField('Submit')
 
     def validate_email(self, field):
         if User.query.filter_by(email=field.data).first() is None:
-            raise ValidationError('此邮箱尚未注册.')
+            raise ValidationError('Email is not registered!')
 
 
 class PasswordResetRequestForm(FlaskForm):
-    email = StringField('邮箱', validators=[DataRequired(), Length(1, 64), Email()])
-    submit = SubmitField('提交')
+    email = StringField('Email', validators=[DataRequired(), Length(1, 64), Email()])
+    submit = SubmitField('Submit')
 
 
 class EmailResetForm(FlaskForm):
-    email = StringField('新邮箱', validators=[DataRequired(), Length(1, 64), Email()])
-    password = PasswordField('输入密码', validators=[DataRequired()])
-    submit = SubmitField('提交')
+    email = StringField('New email', validators=[DataRequired(), Length(1, 64), Email()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    submit = SubmitField('Submit')
 
-    def validate_email(self, field):
+    @staticmethod
+    def validate_email(field):
         if not User.query.filter_by(email=field.data).first() is None:
-            raise ValidationError('此邮箱已经注册.')
+            raise ValidationError('Email is registered!')

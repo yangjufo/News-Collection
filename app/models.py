@@ -174,7 +174,7 @@ class Category(db.Model):
 
     @staticmethod
     def insert_categories():
-        categories = ['科技', '体育', '财经', '热点', '娱乐']
+        categories = ['Technology', 'Sports', 'Money', 'Hot', 'Entertainment']
         for name in categories:
             category = Category.query.filter_by(name=name).first()
             if category is None:

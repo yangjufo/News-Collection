@@ -1,23 +1,23 @@
 {% extends "base.html" %}
 
-{% block title %}新闻聚合 - 账户确认{% endblock %}
+{% block title %}News Collection - Confirm{% endblock %}
 
 {% block page_content %}
     <div class="page-header">
         <h1>
-            你好, {{ current_user.username }}!
+            Hello, {{ current_user.username }}!
         </h1>
-        <h3>你的账号还没有确认</h3>
+        <h3>You are not confirmed</h3>
         <p>
-            在你访问网站之前需要先确认账号.
-        <p>检查一下您的邮箱，您应该已经接收到了我们发送的确认链接.</p>
+            You need to confirm you email first.
+        <p>Please check you mailbox and verify you email.</p>
         </p>
         <p>
-            重发确认邮件?
-            <a href="{{ url_for('auth.resend_confirmation') }}">点击重发</a>
+            Do not receive verification email?
+            <a href="{{ url_for('auth.resend_confirmation') }}">Resend</a>
         </p>
         <p>
-            <a href="{{ url_for('auth.immediate_confirm') }}" class="btn btn-danger">点击立即确认</a>
+            <a href="{{ url_for('auth.immediate_confirm') }}" class="btn btn-danger">Verify</a>
         </p>
     </div>
 {% endblock %}

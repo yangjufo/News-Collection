@@ -1,6 +1,6 @@
 {% extends "bootstrap/base.html" %}
 
-{% block title %}新闻聚合-你的专属新闻频道{% endblock %}
+{% block title %}News Collection - Your Channel{% endblock %}
 
 {% block head %}
     {{ super() }}
@@ -22,30 +22,31 @@
             style="width: auto; min-width: 0px; height: auto; padding-left: 15%; ">
         <nav class="bjh-header-content" style="width: inherit;">
             <a href="/" class="bjh-header-logo">
-                <img src="https://gss0.bdstatic.com/5foIcy0a2gI2n2jgoY3K/static/fisp_static/baijia/static/img/logo_8e6fbd7.png"
-                     alt="百家号Logo">
+                <img src="{{ url_for('static', filename='logo.png') }}"
+                     alt="logo">
             </a>
-            <ul class="bjh-header-top" style="padding-top: 31px; float: none;">
-                <li class="bjh-header-top-item"><a href="{{ url_for('main.subscribe') }}"
-                                                   style="font-size: 20px">订阅栏目</a></li>
+            <ul class="bjh-header-top" style="padding-top: 20px; float: none; max-width: 40%;">
+                <li class="bjh-header-top-item" style="padding-top: 15px;">
+                    <a href="{{ url_for('main.subscribe') }}" style="font-size: 20px">Subscription</a></li>
                 {% if current_user.is_authenticated %}
-                    <li class="bjh-header-top-item dropdown">
+                    <li class="bjh-header-top-item dropdown" style="padding-top: 15px;">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"
                            style="font-size: 20px;">{{ current_user.username }}<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url_for('auth.change_password') }}">修改密码</a></li>
-                            <li><a href="{{ url_for('auth.change_email_request') }}">修改注册邮箱</a></li>
-                            <li><a href="{{ url_for('auth.logout') }}">退出登录</a></li>
-                            <li><a href="{{ url_for('main.information') }}">个人信息</a></li>
+                            <li><a href="{{ url_for('auth.change_password') }}">Update password</a></li>
+                            <li><a href="{{ url_for('auth.change_email_request') }}">Update email</a></li>
+                            <li><a href="{{ url_for('auth.logout') }}">Log out</a></li>
+                            <li><a href="{{ url_for('main.information') }}">User information</a></li>
                         </ul>
                     </li>
                 {% else %}
-                    <li class="bjh-header-top-item"><a href="{{ url_for('auth.login') }}" style="font-size: 20px">登录</a>
+                    <li class="bjh-header-top-item" style="padding-top: 15px;"><a href="{{ url_for('auth.login') }}" style="font-size: 20px">Log
+                        in</a>
                     </li>
                 {% endif %}
             </ul>
-            <ul class="bjh-header-list" style="margin-top: 0;">
-                <li class="bjh-header-item"><a href="/">首页</a></li>
+            <ul class="bjh-header-list" style="margin: 0;">
+                <li class="bjh-header-item"><a href="/">Home</a></li>
                 {% for category in categories %}
                     <li class="bjh-header-item {% if category==cur_category %} bjh-header-item-choose{% endif %}">
                         <a href="/?category={{ category }}">{{ category }}</a></li>
@@ -69,9 +70,8 @@
             </div>
         </div>
     </div>
-    <footer style="padding-left:25%; font-style: italic; font-size: 15px">
-        <p>此网站抓取抓取今日头条、网易等新闻网站，仅为课程作业，请勿传播。如有任何疑问或建议，请联系:
-            <a href="mailto:someone@example.com">yangjufo@163.com</a>。</p>
+    <footer style="padding-left:50%; padding-bottom: 30px; font-size: 15px">
+        <p class="copyright">&copy; 2018 - <a href="https://www.jianyang995.com">Jian Yang</a></p>
     </footer>
 {% endblock %}
 

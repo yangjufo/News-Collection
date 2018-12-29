@@ -1,6 +1,7 @@
-<p>你好 {{ user.username }},</p>
-<p>确认你的新邮箱地址 <a href="{{ url_for('auth.change_email', token=token, _external=True) }}">点击确认</a>.</p>
-<p>你也可以把这个链接复制到你的浏览器地址栏打开:</p>
+<p>hello {{ user.username }},</p>
+<p>Please verify your email <a href="{{ url_for('auth.change_email', token=token, _external=True) }}">Verify</a>.</p>
+<p>You can also copy the following link to browser:</p>
 <p>{{ url_for('auth.change_email', token=token, _external=True) }}</p>
-<p>新闻聚合-你的专属新闻频道</p>
+<p>If you can not recognize this information, please discard it.</p>
+<p>News Collection - Your Channel</p>
 <p><small>Note: replies to this email address are not monitored.</small></p>

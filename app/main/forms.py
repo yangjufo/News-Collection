@@ -13,7 +13,7 @@ class EditProfileForm(FlaskForm):
         self.column2.choices = self.choices
         self.column3.choices = self.choices
 
-    column1 = SelectField('栏目一')
-    column2 = SelectField('栏目二')
-    column3 = SelectField('栏目三')
-    submit = SubmitField('提交')
+    column1 = SelectField('Column 1')
+    column2 = SelectField('Column 2')
+    column3 = SelectField('Column 3')
+    submit = SubmitField('Submit')

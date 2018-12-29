@@ -5,7 +5,7 @@
 # See documentation in:
 # http://doc.scrapy.org/en/latest/topics/items.html
 
-from sqlalchemy import Column, Integer, DateTime, String, VARCHAR, Boolean, TEXT
+from sqlalchemy import Column, Integer, DateTime, String, VARCHAR, TEXT
 from sqlalchemy.ext.declarative import declarative_base
 
 from .connect import test_engine
@@ -17,10 +17,10 @@ from datetime import datetime
 
 
 class Article(Base):
-    # 表的名字:
+    # table name:
     __tablename__ = 'posts'
 
-    # 表的结构:
+    # table columns:
     id = Column(Integer(), primary_key=True)
     url = Column(VARCHAR(255), unique=True)
     title = Column(VARCHAR(255), unique=True)

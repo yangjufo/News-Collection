@@ -1,8 +1,10 @@
-你好，{{ user.username}},
-欢迎来到小站！
-请点击下面的链接确认你的账户：
+Hello，{{ user.username}},
+Welcome to News Collection！
+Please click the following link to confirm ：
 {{url_for('auth.confirm',token=token,_external=True)}}
 
-如果不是您本人的操作，请忽略这个链接
+If you can not recognize this information, please discard it.
 
-网站管理员
+News Collection - Your Channel
+
+Note: replies to this email address are not monitored.
