@@ -16,7 +16,7 @@ MAIL_PORT = 465
 MAIL_USE_SSL = True
 MAIL_USERNAME = '156416776@qq.com'
 
-DEBUG = True
+DEBUG = False
 
 MAIL_PASSWORD = 'tceoohejyyswcagf'
 
