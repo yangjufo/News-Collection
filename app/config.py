@@ -18,7 +18,7 @@ MAIL_USERNAME = '156416776@qq.com'
 
 DEBUG = False
 
-MAIL_PASSWORD = 'tceoohejyyswcagf'
+MAIL_PASSWORD = ''
 
 db_cfg={
     'host': '127.0.0.1',
