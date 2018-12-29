@@ -47,13 +47,13 @@ def toutiao_spider(category_web, category_db):
             web_site = '今日头条'
             article = Article(url=source_url, title=title, publish_time=behot_time, abstract=abstract, image=image_url,
                               category=category, web_site=web_site)
-            print(title)
+            #print(title)
             if article and image_url:
                 session.add(article)
                 try:
                     session.commit()
                 except:
-                    print(traceback.print_exc())
+                    #print(traceback.print_exc())
                     session.rollback()
 
 
