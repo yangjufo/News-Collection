@@ -19,7 +19,6 @@ def index():
     pagination = query_set.order_by(Post.publish_time.desc(), Post.id.desc()).paginate(page, per_page=50,
                                                                                        error_out=False)
     articles = pagination.items
-    print(articles)
     sub_cates = []
     if current_user.is_authenticated:
         sub_cates = [current_user.column1, current_user.column2, current_user.column3]
