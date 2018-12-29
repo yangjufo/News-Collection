@@ -18,13 +18,13 @@ MAIL_USERNAME = '156416776@qq.com'
 
 DEBUG = True
 
-MAIL_PASSWORD = 'tceoohejyyswcagf'
+MAIL_PASSWORD = ''
 
 db_cfg={
     'host': '127.0.0.1',
     'port':3306,
     'user': 'root',
-    'passwd': '12138',
+    'passwd': '',
     'db': 'newsCollection',
     'encoding':'utf-8'
 }
