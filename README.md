@@ -1,8 +1,8 @@
 # News-Collection
 
-## Basic infomation
+## Basic information
 
-A website collects and shows news from Internet, based on Flask.
+A website collects and shows news from the Internet, based on Flask.
 
 Deployed on AWS, address: https://news.jianyang995.com/
 
