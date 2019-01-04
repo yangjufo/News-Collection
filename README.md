@@ -33,7 +33,7 @@ Change configuration in ```app/config.py```
 ### Homepage
 ![alt homepage](https://raw.githubusercontent.com/yangjufo/News-Collection/master/readme/homepage.png)
 ### Log in
-![alt homepage](https://raw.githubusercontent.com/yangjufo/News-Collection/master/readme/login.png)
+![alt login page](https://raw.githubusercontent.com/yangjufo/News-Collection/master/readme/login.png)
 
 
 
