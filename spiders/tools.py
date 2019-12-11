@@ -31,4 +31,4 @@ def get_page(url=None, params=None, method='GET', headers=headers, cookies=cooki
         parm = [v for k, v in params.items()]
         url = url + '?' + '&'.join(parm)
     res = requests.request(method=method, url=url, params=params, headers=headers, cookies=cookies)
-    return res.content
+    return res.content.decode('utf-8')

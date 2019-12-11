@@ -58,13 +58,16 @@ def toutiao_spider(category_web, category_db):
 
 
 def main():
-    while True:
-        toutiao_spider("news_hot", "Hot")
-        toutiao_spider("news_finance", "Money")
-        toutiao_spider("news_entertainment", "Entertainment")
-        toutiao_spider("news_tech", "Technology")
-        toutiao_spider("news_sports", "Sports")
-        time.sleep(86400)
+    try:
+        session.query(Article).delete()
+        session.commit()
+    except:
+        session.rollback()
+    toutiao_spider("news_hot", "Hot")
+    toutiao_spider("news_finance", "Money")
+    toutiao_spider("news_entertainment", "Entertainment")
+    toutiao_spider("news_tech", "Technology")
+    toutiao_spider("news_sports", "Sports")
 
 
 if __name__ == '__main__':
