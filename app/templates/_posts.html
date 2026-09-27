@@ -4,7 +4,7 @@
             <div class="article-info">
                 <div class="art-img">
                     <a href="{{ article.url }}" target="_blank">
-                        <img src="{{ article.image }}">
+                        <img src="{{ article.image }}" onerror="this.onerror=null;this.src='/static/logo.png';">
                     </a>
                 </div>
                 <div class="art-info" style="width: auto">
@@ -24,6 +24,11 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        {% else %}
+            <div class="alert alert-info text-center" style="margin: 40px auto; max-width: 600px; padding: 25px;">
+                <p style="font-size: 18px; margin-bottom: 10px;"><strong>No articles found in this category yet.</strong></p>
+                <p>Run <code>python manage.py crawl</code> to fetch the latest news stories.</p>
             </div>
         {% endfor %}
 

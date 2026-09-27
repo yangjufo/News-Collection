@@ -1,19 +1,35 @@
-# -*- coding:utf-8 -*-
+import re
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, BooleanField, ValidationError
-from wtforms.validators import DataRequired, Length, Email, Regexp, EqualTo
+from wtforms.validators import DataRequired, Length, Regexp, EqualTo
 from ..models import User
 
 
+class Email:
+    def __init__(self, message='Invalid email address.'):
+        self.message = message
+
+    def __call__(self, form, field):
+        try:
+            import email_validator
+            from wtforms.validators import Email as _Email
+            return _Email(message=self.message)(form, field)
+        except Exception:
+            if not field.data or not re.match(r'^[^@\s]+@[^@\s]+\.[^@\s]+$', field.data):
+                raise ValidationError(self.message)
+
+
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Length(1, 64), Email()])
+    email = StringField('Email', validators=[
+                        DataRequired(), Length(1, 64), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Keep me logged in')
     submit = SubmitField('Log in')
 
 
 class RegistrationForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Length(1, 64), Email()])
+    email = StringField('Email', validators=[
+                        DataRequired(), Length(1, 64), Email()])
     username = StringField('Username', validators=[DataRequired(), Length(1, 64), Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
                                                                                          'Username must start with a '
                                                                                          'letter and can only contain: '
@@ -39,11 +55,12 @@ class ChangePasswordForm(FlaskForm):
     password = PasswordField('New password', validators=[DataRequired()])
     password2 = PasswordField('Confirm password',
                               validators=[DataRequired(), EqualTo('password', message='Passwords must match!')])
-    submit = SubmitField('Submit', validators=[DataRequired()])
+    submit = SubmitField('Submit')
 
 
 class PasswordResetForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Length(1, 64), Email()])
+    email = StringField('Email', validators=[
+                        DataRequired(), Length(1, 64), Email()])
     password = PasswordField('New password', validators=[DataRequired()])
     password2 = PasswordField('Confirm password',
                               validators=[DataRequired(), EqualTo('password', message='Passwords must match.')])
@@ -55,12 +72,14 @@ class PasswordResetForm(FlaskForm):
 
 
 class PasswordResetRequestForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Length(1, 64), Email()])
+    email = StringField('Email', validators=[
+                        DataRequired(), Length(1, 64), Email()])
     submit = SubmitField('Submit')
 
 
 class EmailResetForm(FlaskForm):
-    email = StringField('New email', validators=[DataRequired(), Length(1, 64), Email()])
+    email = StringField('New email', validators=[
+                        DataRequired(), Length(1, 64), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Submit')
 

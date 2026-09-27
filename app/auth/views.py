@@ -33,11 +33,13 @@ def logout():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(email=form.email.data, username=form.username.data, password=form.password.data)
+        user = User(email=form.email.data,
+                    username=form.username.data, password=form.password.data)
         db.session.add(user)
         db.session.commit()
         token = user.generate_confirmation_token()
-        send_email(user.email, 'Verification', 'auth/email/confirm', user=user, token=token)
+        send_email(user.email, 'Verification',
+                   'auth/email/confirm', user=user, token=token)
         flash('Verification mail has sent to you mailbox!')
         return redirect(url_for('main.index'))
     return render_template('auth/register.html', form=form)
@@ -46,7 +48,8 @@ def register():
 @auth.route('/confirm')
 def resend_confirmation():
     token = current_user.generate_confirmation_token()
-    send_email(current_user.email, 'Verification', 'auth/email/confirm', user=current_user, token=token)
+    send_email(current_user.email, 'Verification',
+               'auth/email/confirm', user=current_user, token=token)
     flash('Verification mail has sent to you mailbox!')
     return redirect(url_for('main.index'))
 
@@ -67,22 +70,28 @@ def confirm(token):
 def before_request():
     if current_user.is_authenticated:
         current_user.ping()
-        if not current_user.confirmed and request.endpoint[:5] != 'auth.' and request.endpoint != 'static':
+        if not current_user.confirmed \
+                and request.endpoint \
+                and request.endpoint[:5] != 'auth.' \
+                and request.endpoint != 'static':
             return redirect(url_for('auth.unconfirmed'))
 
 
 @auth.route('/unconfirmed')
 def unconfirmed():
     if current_user.is_anonymous or current_user.confirmed:
-        redirect(url_for('main.index'))
+        return redirect(url_for('main.index'))
     return render_template('auth/unconfirmed.html')
 
 
-@auth.route('/auth.immediate_confirm')
+@auth.route('/immediate_confirm')
 def immediate_confirm():
-    current_user.confirmed = True
-    db.session.add(current_user)
-    return redirect(url_for('auth.login'))
+    if current_user.is_authenticated:
+        current_user.confirmed = True
+        db.session.add(current_user)
+        db.session.commit()
+        flash('Account verified!')
+    return redirect(url_for('main.index'))
 
 
 @auth.route('/change_password', methods=['GET', 'POST'])
@@ -93,6 +102,7 @@ def change_password():
         if current_user.verify_password(form.old_password.data):
             current_user.password = form.password.data
             db.session.add(current_user)
+            db.session.commit()
             flash('Password reset succeeds!')
             return redirect(url_for('main.index'))
         else:
@@ -105,10 +115,12 @@ def password_reset_request():
     if not current_user.is_anonymous:
         return redirect(url_for('main.index'))
     form = PasswordResetRequestForm()
-    user = User.query.filter_by(email=form.email.data).first()
-    if user:
-        token = user.generate_reset_token()
-        send_email(user.email, 'Password Reset', 'auth/email/reset_password', user=user, token=token)
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user:
+            token = user.generate_reset_token()
+            send_email(user.email, 'Password Reset',
+                       'auth/email/reset_password', user=user, token=token)
         flash('Password reset mail has sent to you mailbox!')
         return redirect(url_for('auth.login'))
     return render_template('auth/reset_password.html', form=form)
@@ -138,7 +150,8 @@ def change_email_request():
         if current_user.verify_password(form.password.data):
             new_email = form.email.data
             token = current_user.generate_email_change_token(new_email)
-            send_email(new_email, 'Confirm Email', 'auth/email/change_email', user=current_user, token=token)
+            send_email(new_email, 'Confirm Email',
+                       'auth/email/change_email', user=current_user, token=token)
             flash('Confirm mail has sent to your mailbox!')
             return redirect(url_for('main.index'))
         else:
@@ -152,6 +165,5 @@ def change_email(token):
     if current_user.change_email(token):
         flash('Email change succeeds!')
     else:
-        flash('Email hange link is invalid!')
+        flash('Email change link is invalid!')
     return redirect(url_for('main.index'))
-

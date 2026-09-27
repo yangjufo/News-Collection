@@ -5,6 +5,7 @@
 # See documentation in:
 # http://doc.scrapy.org/en/latest/topics/items.html
 
+from datetime import datetime
 from sqlalchemy import Column, Integer, DateTime, String, VARCHAR, TEXT
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -12,8 +13,6 @@ from .connect import test_engine
 
 # 创建对象的基类:
 Base = declarative_base()
-
-from datetime import datetime
 
 
 class Article(Base):
@@ -31,7 +30,7 @@ class Article(Base):
     category = Column(String(64))
     others = Column(TEXT)
     publish_time = Column(DateTime)
-    create_time = Column(DateTime, index=True, default=datetime.now())
+    create_time = Column(DateTime, index=True, default=datetime.utcnow)
 
 
 Base.metadata.create_all(test_engine)  # 创建表

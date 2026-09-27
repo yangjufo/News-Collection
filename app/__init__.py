@@ -18,9 +18,14 @@ login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
 
 
-def create_app(config_name):
+def create_app(config_name='default'):
     app = Flask(__name__)
     app.config.from_pyfile('config.py')  # 启用instance的配置
+
+    if config_name == 'testing':
+        app.config['TESTING'] = True
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
+        app.config['WTF_CSRF_ENABLED'] = False
 
     bootstrap.init_app(app)
     mail.init_app(app)
@@ -34,5 +39,14 @@ def create_app(config_name):
 
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
+
+    if config_name != 'testing':
+        with app.app_context():
+            try:
+                db.create_all()
+                from .models import Category
+                Category.insert_categories()
+            except Exception:
+                pass
 
     return app

@@ -1,7 +1,16 @@
-#!/bin/sh
+#!/bin/bash
 
-source_folder=/home/ubuntu/sites/news.jianyang995.com
+# Determine directory of this script
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+cd "$DIR"
 
-cd $source_folder/News-Collection/spiders/
-$source_folder/env/bin/python toutiao_spider.py
+# Use virtualenv python if available, else python3
+if [ -f "$DIR/../venv/bin/python" ]; then
+    PYTHON="$DIR/../venv/bin/python"
+elif [ -f "$DIR/../env/bin/python" ]; then
+    PYTHON="$DIR/../env/bin/python"
+else
+    PYTHON="python3"
+fi
 
+$PYTHON news_spider.py "$@"
